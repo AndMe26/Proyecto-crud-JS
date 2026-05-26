@@ -1,0 +1,1 @@
+// aqui se define el enrutamiento de la aplicacion, se importan las funciones de cada vista y se asignan a cada ruta
