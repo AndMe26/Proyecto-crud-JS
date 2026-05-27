@@ -1,3 +1,5 @@
+
+
 export function renderLogin() {
     return `
     <div class="min-h-screen bg-gradient-to-b from-sky-50 via-white to-blue-100 text-slate-800">

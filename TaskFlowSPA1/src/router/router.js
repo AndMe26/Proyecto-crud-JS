@@ -26,7 +26,7 @@ export function initRouter() {
             return;
         }
         const href = link.getAttribute("href");
-        if (!href || href.startsWith("/")) {
+        if (!href || !href.startsWith("/")) {
             return;
         }
         event.preventDefault();

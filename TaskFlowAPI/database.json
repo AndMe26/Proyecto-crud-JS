@@ -1,4 +1,29 @@
 {
-    "users" : [],
-    "tasks" : []
+  "users": [
+    {
+      "id": "22be",
+      "name": "ana",
+      "lastname": "torres",
+      "email": "usuarios@taskflow.com",
+      "password": "123456",
+      "role": "USER"
+    },
+    {
+      "id": "5225",
+      "name": "jose",
+      "lastname": "zulueta",
+      "email": "usuarios@taskflow.com",
+      "password": "123456",
+      "role": "USER"
+    },
+    {
+      "id": "ca05",
+      "name": "anita",
+      "lastname": "torres",
+      "email": "usuaria@taskflow.com",
+      "password": "876431",
+      "role": "USER"
+    }
+  ],
+  "tasks": []
 }

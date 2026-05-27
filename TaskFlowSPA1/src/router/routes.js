@@ -5,7 +5,7 @@ import { renderDashboard } from "../views/app/dashboard.js";
 import { renderAdmin } from "../views/admin/admin.js";
 import { renderNotFound } from "../views/not-found.js";
 import { renderProfile } from "../views/auth/profile.js";
-import { renderRegister } from "../views/auth/register.js";
+import { renderRegister, setupRegister } from "../views/auth/register.js";
 import { renderTasks } from "../views/tasks/tasks.js";
 import { renderTaskForm } from "../views/tasks/task-form.js";
 
@@ -41,6 +41,7 @@ export const routes = {
         render: renderRegister,
         requiresAuth: false,
         redirectIfAuth: true,
+        setup: setupRegister
     },
     "/tasks": {
         render: renderTasks,

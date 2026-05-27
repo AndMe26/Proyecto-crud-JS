@@ -1,3 +1,6 @@
+import { crearUsuario } from "../../services/users.service";
+
+
 export function setupRegister() {
   const form = document.getElementById('register-form');
   const nombre = document.getElementById('register-name');
@@ -16,7 +19,7 @@ export function setupRegister() {
       role: role.value
     };
     const response = await crearUsuario(newUser);
-    if (response.success) {
+    if (response.id) {
       alert('Usuario registrado exitosamente');
     }
   });
@@ -74,9 +77,9 @@ export function renderRegister() {
                 </select>
               </div>
             </div>
-            <a id="go-login" class="inline-flex items-center justify-center rounded-2xl bg-blue-600 px-5 py-3 text-sm font-bold text-white hover:bg-blue-500" href="/login">
+            <button type="submit" class="inline-flex items-center justify-center rounded-2xl bg-blue-600 px-5 py-3 text-sm font-bold text-white hover:bg-blue-500" >
               Registrarme
-            </a>
+            </button>
           </form>
         </div>
       </section>

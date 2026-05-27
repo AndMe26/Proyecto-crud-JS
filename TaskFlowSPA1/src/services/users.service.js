@@ -22,7 +22,7 @@ export async function obtenerUsuarios() {
 }
 
 export async function obtenerUsuario(email) {
-    const response = await fetch(`http://localhost:3000/users/${email}`);
+    const response = await fetch(`http://localhost:3000/users?email=${email}`);
     if (!response.ok) {
         throw new Error('Error al obtener usuario');
     }
@@ -44,8 +44,8 @@ export async function actualizarUsuario(id, datosActualizados) {
     return await response.json();
 }
 
-export async function actuzalizarrolusuario(id, nuevoRol) {
-    const response = await fetch(`http://localhost:3000/users/${id}/role`, {
+export async function actuzalizarRolUsuario(id, nuevoRol) {
+    const response = await fetch(`http://localhost:3000/users/${id}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
