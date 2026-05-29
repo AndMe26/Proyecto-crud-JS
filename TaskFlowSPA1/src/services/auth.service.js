@@ -1,14 +1,16 @@
-import { obtenerUsuarios } from "./users.service";
+import { obtenerUsuario } from "./users.service";
 
 const STORAGE_KEY = "taskflow_user";
 
 export async function login(email, password) {
     
-    const usuario = await obtenerUsuarios(email)
+    const usuario = await obtenerUsuario(email)
+    console.log(usuario);
+    
     if (!usuario) {
         return {
-             success: true,
-             message: "Usuario no encontrado"
+            success: false,
+            message: "Usuario no encontrado"
         };
     };
 

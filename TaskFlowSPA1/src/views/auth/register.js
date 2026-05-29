@@ -8,9 +8,18 @@ export function setupRegister() {
   const email = document.getElementById('register-email');
   const password = document.getElementById('register-password');
   const role = document.getElementById('register-role');
+  const message = document.getElementById('register-message')
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
+
+    if(!nombre.value ||!apellido.value ||!email.value ||!password.value ) {
+      message.textContent = "Todos los campos son obligatorios";
+      message.className = "text-sm font-medium text-red-500"
+      
+      return;
+    }
+
     const newUser = {
       name: nombre.value,
       lastname: apellido.value,
@@ -20,13 +29,15 @@ export function setupRegister() {
     };
     const response = await crearUsuario(newUser);
     if (response.id) {
-      alert('Usuario registrado exitosamente');
+      message.textContent = "Usuario registrado exitosamente";
+      message.className = "text-sm font-medium text-green-600"
+      form.reset();
     }
   });
 }
 
 export function renderRegister() {
-    return `
+  return `
     <div class="min-h-screen bg-gradient-to-b from-sky-50 via-white to-blue-100 text-slate-800">
     <main class="grid min-h-screen lg:grid-cols-[0.95fr_1.05fr]">
       <section class="hidden border-r border-blue-100 bg-blue-600 p-10 text-white lg:flex lg:flex-col lg:justify-between">
@@ -80,6 +91,7 @@ export function renderRegister() {
             <button type="submit" class="inline-flex items-center justify-center rounded-2xl bg-blue-600 px-5 py-3 text-sm font-bold text-white hover:bg-blue-500" >
               Registrarme
             </button>
+            <p id="register-message" class"text-sm font-medium"></p>
           </form>
         </div>
       </section>

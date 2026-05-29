@@ -1,4 +1,42 @@
+import { login } from "../../services/auth.service.js";
+import { renderRouter } from "../../router/router.js";
 
+export function setupLogin() {
+    const form = document.getElementById("login-form")
+    const emailInput = document.getElementById("email")
+    const passwordInput = document.getElementById("password")
+    const message = document.getElementById("login-message")
+
+    form.addEventListener("submit",async (event) => {
+    event.preventDefault();
+    
+        if (!emailInput.value.trim()|| !passwordInput.value.trim()) {
+            message.textContent = "Todos los campos son obligatorios";
+            message.className = "text-sm font-medium text-red-500";
+            return;
+        }
+
+        const resultado = await login(
+            emailInput.value,
+            passwordInput.value
+        );
+
+        if (!resultado.success){
+            message.textContent = resultado.message;
+            message.className = "text-sm font-medium text-red-500"
+            return;
+        }
+
+        message.textContent = "Inicio de sesion exitoso";
+        message.className = "text-sm font-medium text-green-600";
+        form.reset();
+
+        window.history.pushState({} , "" , "/dashboard");
+        renderRouter();
+
+    }
+    );
+}
 
 export function renderLogin() {
     return `
@@ -15,7 +53,7 @@ export function renderLogin() {
                         <h1 class="mt-2 text-4xl font-black tracking-tight text-slate-900">Bienvenido de nuevo</h1>
                         <p class="mt-4 text-slate-600">Ingresa a tu espacio de trabajo y continua organizando tus tareas.</p>
                     </div>
-                    <form class="mt-8 grid gap-5">
+                    <form id="login-form" class="mt-8 grid gap-5">
                         <div>
                             <label class="mb-2 block text-sm font-medium text-slate-700" for="email">Correo</label>
                             <input id="email" type="email" placeholder="usuario@taskflow.com"
@@ -26,9 +64,10 @@ export function renderLogin() {
                             <input id="password" type="password" placeholder="Ingresa tu contrasena"
                             class="w-full rounded-2xl border border-blue-100 bg-blue-50 px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-blue-400 focus:outline-none" />
                         </div>
-                        <a id="go-dashboard" class="inline-flex items-center justify-center rounded-2xl bg-blue-600 px-5 py-3 text-sm font-bold text-white hover:bg-blue-500" href="/dashboard">
+                        <button id="go-dashboard" class="inline-flex items-center justify-center rounded-2xl bg-blue-600 px-5 py-3 text-sm font-bold text-white hover:bg-blue-500" href="/dashboard">
                             Entrar al dashboard
-                        </a>
+                        </button>
+                        <p id= "login-message" class="text-sm font-medium"></p>
                     </form>
                 </div>
             </section>
@@ -46,3 +85,32 @@ export function renderLogin() {
         </main>
     </div>`;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

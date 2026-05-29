@@ -23,6 +23,30 @@
       "email": "usuaria@taskflow.com",
       "password": "876431",
       "role": "USER"
+    },
+    {
+      "id": "a265",
+      "name": "ana ",
+      "lastname": "Torres ",
+      "email": "usuaria@taskflow.com",
+      "password": "12345",
+      "role": "USER"
+    },
+    {
+      "id": "b08c",
+      "name": "Abelardo",
+      "lastname": "Platano",
+      "email": "usuario@taskflow.com",
+      "password": "156423",
+      "role": "ADMIN"
+    },
+    {
+      "id": "4b2f",
+      "name": "abelardo",
+      "lastname": "platano",
+      "email": "usuarios@taskflow.com",
+      "password": "1534876952",
+      "role": "ADMIN"
     }
   ],
   "tasks": []

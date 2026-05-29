@@ -1,6 +1,6 @@
 // aqui se definen las rutas de la aplicacion
 import { renderHome } from "../views/home.js";
-import { renderLogin } from "../views/auth/login.js";
+import { renderLogin,setupLogin } from "../views/auth/login.js";
 import { renderDashboard } from "../views/app/dashboard.js";
 import { renderAdmin } from "../views/admin/admin.js";
 import { renderNotFound } from "../views/not-found.js";
@@ -18,6 +18,7 @@ export const routes = {
     },
     "/login": {
         render: renderLogin,
+        setup: setupLogin,
         requiresAuth: false,
         redirectIfAuth: true,
     },
