@@ -27,9 +27,6 @@ export function setupLogin() {
             return;
         }
 
-        message.textContent = "Inicio de sesion exitoso";
-        message.className = "text-sm font-medium text-green-600";
-        form.reset();
 
         window.history.pushState({} , "" , "/dashboard");
         renderRouter();

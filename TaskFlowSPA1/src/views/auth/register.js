@@ -1,4 +1,4 @@
-import { crearUsuario } from "../../services/users.service";
+import { crearUsuario, obtenerUsuario } from "../../services/users.service";
 
 
 export function setupRegister() {
@@ -19,6 +19,15 @@ export function setupRegister() {
       
       return;
     }
+
+    const usuarioExistente = await obtenerUsuario(email.value);
+
+    if (usuarioExistente) {
+      message.textContent = "Este Correo ya se encuentra registrado";
+      message.className = "text-sm font-medium text-red-500"
+      return;
+    }
+
 
     const newUser = {
       name: nombre.value,
