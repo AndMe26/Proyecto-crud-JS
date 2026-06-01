@@ -1,6 +1,7 @@
 // aqui se define el enrutamiento de la aplicacion, se importan las funciones de cada vista y se asignan a cada ruta
 
 import { notFoundView, routes } from "./routes.js";
+import { isAuthenticated, getCurrentUser } from "../services/auth.service.js";
 
 export function renderRouter() {
     const app = document.getElementById("app")
@@ -8,9 +9,15 @@ export function renderRouter() {
         return;
     }
 
-    const currentPath = window.location.pathname;
+    const currentPath = window.location.pathname;   //obtiene la ruta actual ej: home , dashboard
 
-    const route = routes[currentPath] ?? notFoundView;
+    const route = routes[currentPath] ?? notFoundView;  // busca la ruta 
+    
+
+    if(route.requiresAuth && !isAuthenticated()) {            //requiresAuth: Requiere login.  isAuthenticated: esta el usuario logueado
+        window.history.pushState({},"","/login");             // si la ruta requiere autenticacion y el usuario no esta autenticado, redirige al login                
+        return renderRouter()                                 // Renderiza el login
+    }
 
     app.innerHTML = route.render();
 

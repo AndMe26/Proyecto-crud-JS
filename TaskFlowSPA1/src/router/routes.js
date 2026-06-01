@@ -29,7 +29,7 @@ export const routes = {
     "/admin": {
         render: renderAdmin,
         requiresAuth: true,
-        requiredRole: "admin",
+        requiredRole: "ADMIN",
     },
     "/not-found": {
         render: renderNotFound,
