@@ -19,6 +19,15 @@ export function renderRouter() {
         return renderRouter()                                 // Renderiza el login
     }
 
+    const usuario = getCurrentUser();
+    
+    if(route.requiredRole) {
+        if (usuario.role !== route.requiredRole){
+            window.history.pushState({}, "", "/dashboard");
+            return renderRouter();
+        }
+    }
+
     app.innerHTML = route.render();
 
     if (route.setup) {

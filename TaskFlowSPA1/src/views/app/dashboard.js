@@ -1,4 +1,5 @@
 import { getCurrentUser } from "../../services/auth.service.js"
+import { logout } from "../../services/auth.service.js";
 
 export function renderDashboard() {
     const usuario = getCurrentUser();
@@ -12,7 +13,7 @@ export function renderDashboard() {
                 <a id="go-tasks" class="rounded-full px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-blue-50 hover:text-blue-700" href="/tasks">Tareas</a>
                 <a id="go-profile" class="rounded-full px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-blue-50 hover:text-blue-700" href="/profile">Perfil</a>
                 <a id="go-admin" class="rounded-full px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-blue-50 hover:text-blue-700" href="/admin">Admin</a>
-                <a class="rounded-full px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-50" href="/login">Logout</a>
+                <a id="btn-logout" class="rounded-full px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-50" href="/login">Logout</a>
             </nav>
         </div>
     </header>
@@ -59,4 +60,13 @@ export function renderDashboard() {
         </section>
     </main>
 </div>`;
+}
+
+export function setupLogout(){
+    const logoutButton = document.getElementById("btn-logout")
+
+    logoutButton.addEventListener("click", () => {
+        logout();
+    });
+
 }

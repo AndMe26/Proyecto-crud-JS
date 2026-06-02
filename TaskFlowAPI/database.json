@@ -41,12 +41,9 @@
       "role": "ADMIN"
     },
     {
-      "id": "1eaa",
-      "name": "Test1",
-      "lastname": ".",
-      "email": "prueba1@gmail.com",
-      "password": "852369",
-      "role": "ADMIN"
+      "name": "admin",
+      "email": "admin@taskflow.com",
+      "id": "1eaa"
     }
   ],
   "tasks": []

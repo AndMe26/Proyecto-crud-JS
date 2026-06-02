@@ -1,4 +1,29 @@
+import { getCurrentUser } from "../../services/auth.service";
+import { actualizarUsuario } from "../../services/users.service";
+
+export function setupProfile() {
+  const saveBtn = document.getElementById("save-profile")
+  const nombre = document.getElementById("name")
+  const email = document.getElementById("profile-email")
+  const password = document.getElementById("password-new")
+
+  saveBtn.addEventListener("click", async (event) => {
+      event.preventDefault();
+
+      const usuario = getCurrentUser();
+
+      const userUpdated = {
+        name: nombre.value,
+        email: email.value
+      }
+
+      await actualizarUsuario(usuario.id,userUpdated);
+  });
+  
+}
 export function renderProfile() {
+  const usuario = getCurrentUser();
+
   return `<div class="min-h-screen bg-sky-50 text-slate-800">
   <header class="border-b border-blue-100 bg-white/90 backdrop-blur">
     <div class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
@@ -23,19 +48,19 @@ export function renderProfile() {
         <form class="grid gap-5">
           <div>
             <label class="mb-2 block text-sm font-medium text-slate-700" for="name">Nombre</label>
-            <input id="name" type="text" value="Ana Torres" class="w-full rounded-2xl border border-blue-100 bg-blue-50 px-4 py-3 text-slate-900 focus:border-blue-400 focus:outline-none" />
+            <input id="name" type="text" value="${usuario.name}" class="w-full rounded-2xl border border-blue-100 bg-blue-50 px-4 py-3 text-slate-900 focus:border-blue-400 focus:outline-none" />
           </div>
           <div>
             <label class="mb-2 block text-sm font-medium text-slate-700" for="profile-email">Correo</label>
-            <input id="profile-email" type="email" value="ana@taskflow.com" class="w-full rounded-2xl border border-blue-100 bg-blue-50 px-4 py-3 text-slate-900 focus:border-blue-400 focus:outline-none" />
+            <input id="profile-email" type="email" value="${usuario.email}" class="w-full rounded-2xl border border-blue-100 bg-blue-50 px-4 py-3 text-slate-900 focus:border-blue-400 focus:outline-none" />
           </div>
           <div>
             <label class="mb-2 block text-sm font-medium text-slate-700" for="password-new">Nueva contrasena</label>
             <input id="password-new" type="password" placeholder="Actualiza tu contrasena" class="w-full rounded-2xl border border-blue-100 bg-blue-50 px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-blue-400 focus:outline-none" />
           </div>
           <div class="flex flex-col gap-3 pt-2 sm:flex-row">
-            <a class="inline-flex items-center justify-center rounded-2xl bg-blue-600 px-5 py-3 text-sm font-bold text-white hover:bg-blue-500" href="/profile">Guardar cambios</a>
-            <a class="inline-flex items-center justify-center rounded-2xl border border-blue-200 bg-white px-5 py-3 text-sm font-bold text-blue-700 hover:bg-blue-50" href="/login">Eliminar mi cuenta</a>
+            <a id="save-profile" class="inline-flex items-center justify-center rounded-2xl bg-blue-600 px-5 py-3 text-sm font-bold text-white hover:bg-blue-500" href="/profile">Guardar cambios</a>
+            <a id="delete-account" class="inline-flex items-center justify-center rounded-2xl border border-blue-200 bg-white px-5 py-3 text-sm font-bold text-blue-700 hover:bg-blue-50" href="/login">Eliminar mi cuenta</a>
           </div>
         </form>
       </section>
