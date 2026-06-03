@@ -44,7 +44,7 @@ export async function actualizarUsuario(id, datosActualizados) {
     return await response.json();
 }
 
-export async function actuzalizarRolUsuario(id, nuevoRol) {
+export async function actualizarRolUsuario(id, nuevoRol) {
     const response = await fetch(`http://localhost:3000/users/${id}`, {
         method: 'PATCH',
         headers: {

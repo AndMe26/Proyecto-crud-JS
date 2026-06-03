@@ -47,7 +47,7 @@ export function setupProfile() {
     const usuario = getCurrentUser();
     await eliminarUsuario(usuario.id);
     logout();
-    window.location.pushState({}, "", "/login");
+    window.history.pushState({}, "", "/login"); 
     renderRouter();
   });
 

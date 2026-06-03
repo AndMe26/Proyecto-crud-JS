@@ -1,5 +1,41 @@
+import { obtenerUsuarios, eliminarUsuario, actualizarRolUsuario } from "../../services/users.service.js";
+import { renderRouter } from "../../router/router.js";
+
+
+export async function setupAdmin() {
+  const userslist = document.getElementById("users-list");
+  const usuarios = await obtenerUsuarios();
+
+  userslist.innerHTML = usuarios.map(usuario => `
+        <div class="rounded-2xl bg-blue-50 p-4">
+            <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                <div>
+                    <p class="font-bold text-slate-900">${usuarios.name} ${usuarios.lastname}</p>
+                    <p class="text-sm text-slate-500">${usuarios.email}</p>
+                </div>
+                <div class="flex gap-2">
+                    <span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-blue-700">${usuarios.role}</span>
+                    <button class="btn-edit-rol rounded-full border border-blue-200 px-3 py-1 text-xs font-semibold text-blue-700 hover:bg-white" data-id="${usuarios.id}" data-rol="${usuarios.role}">Editar rol</button>
+                    <button class="btn-delete rounded-full border border-red-200 px-3 py-1 text-xs font-semibold text-red-500 hover:bg-red-50" data-id="${usuarios.id}">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    `).join("");
+}
+    document.querySelectorAll(".btn-edit-rol").forEach(button => {
+      button.addEventListener("click", async () => {
+        const userId= button.dataset.id;
+        const currentRole = button.dataset.rol;
+        const newRole = currentRole === "ADMIN" ? "USER" : "ADMIN";
+        await actualizarRolUsuario(userId, newRole);
+        renderRouter();
+      })
+    })
+
+
+
 export function renderAdmin() {
-    return `<div class="min-h-screen bg-sky-50 text-slate-800">
+  return `<div class="min-h-screen bg-sky-50 text-slate-800">
   <header class="border-b border-blue-100 bg-white/90 backdrop-blur">
     <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
       <a class="text-xl font-black text-blue-900" href="/">TaskFlowSPA</a>
@@ -34,7 +70,7 @@ export function renderAdmin() {
           <h2 class="text-xl font-bold text-slate-900">Usuarios</h2>
           <span class="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-blue-700">Mockup</span>
         </div>
-        <div class="mt-5 space-y-4">
+        <div id="users-list" class="mt-5 space-y-4">
           <div class="rounded-2xl bg-blue-50 p-4">
             <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
               <div>
@@ -65,3 +101,5 @@ export function renderAdmin() {
   </main>
 </div>`;
 }
+
+
