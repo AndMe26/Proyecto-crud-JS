@@ -1,8 +1,8 @@
 // aqui se definen las rutas de la aplicacion
 import { renderHome } from "../views/home.js";
-import { renderLogin,setupLogin } from "../views/auth/login.js";
-import { renderDashboard , setupLogout } from "../views/app/dashboard.js";
-import { renderAdmin } from "../views/admin/admin.js";
+import { renderLogin, setupLogin } from "../views/auth/login.js";
+import { renderDashboard, setupLogout } from "../views/app/dashboard.js";
+import { renderAdmin, setupAdmin } from "../views/admin/admin.js";
 import { renderNotFound } from "../views/not-found.js";
 import { renderProfile, setupProfile } from "../views/auth/profile.js";
 import { renderRegister, setupRegister } from "../views/auth/register.js";
@@ -29,6 +29,7 @@ export const routes = {
     },
     "/admin": {
         render: renderAdmin,
+        setup: setupAdmin,
         requiresAuth: true,
         requiredRole: "ADMIN",
     },
@@ -56,4 +57,6 @@ export const routes = {
     },
 }
 
-export const notFoundView = renderNotFound;
+export const notFoundView = {
+    render: renderNotFound,
+}

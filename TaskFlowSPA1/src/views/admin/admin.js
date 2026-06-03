@@ -1,5 +1,6 @@
 import { obtenerUsuarios, eliminarUsuario, actualizarRolUsuario } from "../../services/users.service.js";
 import { renderRouter } from "../../router/router.js";
+import { getCurrentUser } from "../../services/auth.service.js";
 
 
 export async function setupAdmin() {
@@ -10,30 +11,43 @@ export async function setupAdmin() {
         <div class="rounded-2xl bg-blue-50 p-4">
             <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                 <div>
-                    <p class="font-bold text-slate-900">${usuarios.name} ${usuarios.lastname}</p>
-                    <p class="text-sm text-slate-500">${usuarios.email}</p>
+                    <p class="font-bold text-slate-900">${usuario.name} ${usuario.lastname}</p>
+                    <p class="text-sm text-slate-500">${usuario.email}</p>
                 </div>
                 <div class="flex gap-2">
-                    <span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-blue-700">${usuarios.role}</span>
-                    <button class="btn-edit-rol rounded-full border border-blue-200 px-3 py-1 text-xs font-semibold text-blue-700 hover:bg-white" data-id="${usuarios.id}" data-rol="${usuarios.role}">Editar rol</button>
-                    <button class="btn-delete rounded-full border border-red-200 px-3 py-1 text-xs font-semibold text-red-500 hover:bg-red-50" data-id="${usuarios.id}">Eliminar</button>
+                    <span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-blue-700">${usuario.role}</span>
+                    <button class="btn-edit-rol rounded-full border border-blue-200 px-3 py-1 text-xs font-semibold text-blue-700 hover:bg-white" data-id="${usuario.id}" data-rol="${usuario.role}">Editar rol</button>
+                    <button class="btn-delete rounded-full border border-red-200 px-3 py-1 text-xs font-semibold text-red-500 hover:bg-red-50" data-id="${usuario.id}">Eliminar</button>
                 </div>
             </div>
         </div>
-    `).join("");
-}
-    document.querySelectorAll(".btn-edit-rol").forEach(button => {
-      button.addEventListener("click", async () => {
-        const userId= button.dataset.id;
-        const currentRole = button.dataset.rol;
-        const newRole = currentRole === "ADMIN" ? "USER" : "ADMIN";
-        await actualizarRolUsuario(userId, newRole);
-        renderRouter();
-      })
+    `).join("");   // Join(""): une todos los elementos del array sin ningun separador entre ellos.
+
+  document.querySelectorAll(".btn-edit-rol").forEach(button => {
+    button.addEventListener("click", async () => {
+      const userId = button.dataset.id;
+      const currentRole = button.dataset.rol;
+      const newRole = currentRole === "ADMIN" ? "USER" : "ADMIN";
+      await actualizarRolUsuario(userId, newRole);
+
+      const currentUser = getCurrentUser();
+      if ( currentUser.id == userId ) {
+        const actualizeUser = {...currentUser,role: newRole };
+        localStorage.setItem("taskflow_user", JSON.stringify(actualizeUser))
+      }
+      renderRouter();
     })
+  })
 
+  document.querySelectorAll(".btn-delete").forEach(button => {
+    button.addEventListener("click", async () => {
+      const userId = button.dataset.id;
+      await eliminarUsuario(userId);
+      renderRouter();
+    })
+  })
 
-
+}
 export function renderAdmin() {
   return `<div class="min-h-screen bg-sky-50 text-slate-800">
   <header class="border-b border-blue-100 bg-white/90 backdrop-blur">
@@ -68,33 +82,9 @@ export function renderAdmin() {
       <article class="rounded-3xl border border-blue-100 bg-white p-6 shadow-lg shadow-blue-50">
         <div class="flex items-center justify-between">
           <h2 class="text-xl font-bold text-slate-900">Usuarios</h2>
-          <span class="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-blue-700">Mockup</span>
         </div>
         <div id="users-list" class="mt-5 space-y-4">
-          <div class="rounded-2xl bg-blue-50 p-4">
-            <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-              <div>
-                <p class="font-bold text-slate-900">Ana Torres</p>
-                <p class="text-sm text-slate-500">ana@taskflow.com</p>
-              </div>
-              <div class="flex gap-2">
-                <span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-blue-700">USER</span>
-                <a class="rounded-full border border-blue-200 px-3 py-1 text-xs font-semibold text-blue-700 hover:bg-white" href="/admin">Editar rol</a>
-              </div>
-            </div>
-          </div>
-          <div class="rounded-2xl bg-blue-50 p-4">
-            <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-              <div>
-                <p class="font-bold text-slate-900">Carlos Ruiz</p>
-                <p class="text-sm text-slate-500">carlos@taskflow.com</p>
-              </div>
-              <div class="flex gap-2">
-                <span class="rounded-full bg-white px-3 py-1 text-xs font-bold text-blue-700">ADMIN</span>
-                <a class="rounded-full border border-blue-200 px-3 py-1 text-xs font-semibold text-blue-700 hover:bg-white" href="/admin">Editar rol</a>
-              </div>
-            </div>
-          </div>
+          
         </div>
       </article>
     </section>
