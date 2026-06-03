@@ -25,14 +25,6 @@
       "role": "USER"
     },
     {
-      "id": "a265",
-      "name": "ana ",
-      "lastname": "Torres ",
-      "email": "Torres@taskflow.com",
-      "password": "12345",
-      "role": "USER"
-    },
-    {
       "id": "b08c",
       "name": "Abelardo",
       "lastname": "Platano",
@@ -41,10 +33,14 @@
       "role": "ADMIN"
     },
     {
+      "id": "1eaa",
       "name": "admin",
+      "lastname": ".",
       "email": "admin@taskflow.com",
-      "id": "1eaa"
+      "password": "159753",
+      "role": "ADMIN"
     }
   ],
-  "tasks": []
+  "tasks": [],
+  "$schema": "./node_modules/json-server/schema.json"
 }
