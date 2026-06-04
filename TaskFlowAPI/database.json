@@ -33,6 +33,63 @@
       "role": "ADMIN"
     }
   ],
-  "tasks": [],
+  "tasks": [
+    {
+      "userId": "b08c",
+      "title": "dasd",
+      "description": "asdas",
+      "status": "En progreso",
+      "date": "4554-05-04",
+      "id": "QAys199Eg8I"
+    },
+    {
+      "userId": "b08c",
+      "title": "dasdad",
+      "description": "asdasdasd",
+      "status": "Completada",
+      "date": "58984-04-26",
+      "id": "tN_BoodTynQ"
+    },
+    {
+      "userId": "b08c",
+      "title": "za",
+      "description": "asdas",
+      "status": "Pendiente",
+      "date": "8974-05-04",
+      "id": "4r1ltlEOLfg"
+    },
+    {
+      "userId": "b08c",
+      "title": "asq",
+      "description": "sdadasd",
+      "status": "En progreso",
+      "date": "9459-08-04",
+      "id": "4aaS_5Nw4W0"
+    },
+    {
+      "userId": "b08c",
+      "title": "¡Ey loco, ¿qué pasa, vale mía?!",
+      "description": "Ey loco, que pasa vale mía, deja de estar mostrando la aquí, es que acaso somos o que.",
+      "status": "Completada",
+      "date": "2027-05-26",
+      "id": "ZYcHXF5ZR7o"
+    },
+    {
+      "userId": "b08c",
+      "title": "habla loco ",
+      "description": "asdas",
+      "status": "Pendiente",
+      "date": "2004-12-01",
+      "id": "kSvtlNUprYo"
+    },
+    {
+      "userId": "b08c",
+      "title": "olas",
+      "description": "de mar",
+      "status": "Pendiente",
+      "date": "2026-06-04",
+      "id": "rdfXa1d0Sm8"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

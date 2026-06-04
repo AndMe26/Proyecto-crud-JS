@@ -1,5 +1,6 @@
-import { getCurrentUser } from "../../services/auth.service.js"
-import { logout } from "../../services/auth.service.js";
+import { getCurrentUser, logout } from "../../services/auth.service.js"
+import { obtenerTareas } from "../../services/task.service.js";
+
 
 export function renderDashboard() {
     const usuario = getCurrentUser();
@@ -28,15 +29,15 @@ export function renderDashboard() {
         <section class="mt-8 grid gap-4 md:grid-cols-3">
             <article class="rounded-3xl border border-blue-100 bg-white p-6 shadow-lg shadow-blue-50">
                 <p class="text-sm text-slate-500">Tareas activas</p>
-                <p class="mt-3 text-4xl font-black text-blue-700">12</p>
+                <p id="count-activas" class="mt-3 text-4xl font-black text-blue-700">...</p>
             </article>
             <article class="rounded-3xl border border-blue-100 bg-white p-6 shadow-lg shadow-blue-50">
                 <p class="text-sm text-slate-500">Completadas</p>
-                <p class="mt-3 text-4xl font-black text-blue-700">28</p>
+                <p id="count-completadas" class="mt-3 text-4xl font-black text-blue-700">...</p>
             </article>
             <article class="rounded-3xl border border-blue-100 bg-white p-6 shadow-lg shadow-blue-50">
                 <p class="text-sm text-slate-500">Pendientes hoy</p>
-                <p class="mt-3 text-4xl font-black text-blue-700">4</p>
+                <p id="count-hoy" class="mt-3 text-4xl font-black text-blue-700">...</p>
             </article>
         </section>
 
@@ -62,7 +63,19 @@ export function renderDashboard() {
 </div>`;
 }
 
-export function setupLogout(){
+export async function setupDashboard() {
+    const usuario = getCurrentUser();
+    const tasks = await obtenerTareas(usuario.id)
+    const hoy = new Date().toISOString().split("T")[0];
+
+    const activas = tasks.filter(task => task.status === "En progreso").length;
+    const completadas = tasks.filter(task => task.status === "Completada").length;
+    const hoypendientes = tasks.filter(task => task.status === "Pendiente" && task.date === hoy).length;
+
+    document.getElementById("count-activas").textContent = activas;
+    document.getElementById("count-completadas").textContent = completadas;
+    document.getElementById("count-hoy").textContent = hoypendientes;
+
     const logoutButton = document.getElementById("btn-logout")
 
     logoutButton.addEventListener("click", () => {
